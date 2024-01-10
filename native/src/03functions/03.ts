@@ -1,5 +1,5 @@
 import {student, StudentType} from "../02objects/02";
-import {GovBuildType} from "../02objects/02_02";
+import {CityType, GovBuildType, HousesType} from "../02objects/02_02";
 
 export const sum = (a:number, b:number) => {
     return a+b
@@ -31,3 +31,21 @@ export const addMoney = (build: GovBuildType, budget: number)=> {
 // export const takeMoney = (build: GovBuildType, budget: number) => {
 //     build.budget -= budget;
 // }
+export const repairHouse = (housesType: HousesType) => {
+    housesType.repaired = true;
+}
+
+export function toFireStaff(govBuildType: GovBuildType, staffCountToFire: number) {
+    govBuildType.staffCount -= staffCountToFire;
+}
+
+export function toHireStaff(govBuildType: GovBuildType, staffCountToHire: number) {
+    govBuildType.staffCount += staffCountToHire;
+}
+export function createMessage(city: CityType) {
+    // return "Hello " + city.title + " citizens. I want you to be happy. All " + city.citizensNumber + " people."
+    //option+enter -> replace with template string - зробить більш красивий синтаксис
+    return `Hello ${city.title} citizens. 
+    I want you to be happy. 
+    All ${city.citizensNumber} people.` //цей синтаксис дозволяє переносити строку
+}

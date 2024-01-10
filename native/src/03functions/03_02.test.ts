@@ -1,5 +1,5 @@
 import {CityType} from "../02objects/02_02";
-import {addMoney} from "./03";
+import {addMoney, createMessage, repairHouse, toFireStaff, toHireStaff} from "./03";
 let city: CityType;
 beforeEach(()=> {
     city = {
@@ -43,7 +43,23 @@ test('Budget should be changed for FIRE-STATION', () => {
     addMoney(city.governmentBuildings[1], -100000);
     expect(city.governmentBuildings[1].budget).toBe(400000)
 })
-// test.skip('House should be repaired', () => {
-//     repairHouse(city)
-//     expect(city.houses[1].repaired).toBeTruthy()
-// })
+test('House should be repaired', () => {
+    repairHouse(city.houses[1]);
+
+    expect(city.houses[1].repaired).toBeTruthy() //ще один варіант написати true
+})
+test('Staff should be decreased', () => {
+    toFireStaff(city.governmentBuildings[0], 20);
+    expect(city.governmentBuildings[0].staffCount).toBe(180);
+})
+
+test('Staff should be increased', () => {
+    // const message= createMessage(city); Можна не створювати окремо змінну, а написати її в експекті
+    toHireStaff(city.governmentBuildings[0], 20);
+    //функції можна перевикористовувати
+    toHireStaff(city.governmentBuildings[1], 100);
+
+    expect(city.governmentBuildings[0].staffCount).toBe(220);
+    expect(city.governmentBuildings[1].staffCount).toBe(1100);
+    expect(createMessage(city)).toBe("Hello New York citizens. I want you to be happy. All 100000 people.")
+})
