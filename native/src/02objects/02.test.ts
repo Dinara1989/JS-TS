@@ -1,5 +1,7 @@
 import {CityType} from "./02_02";
 import {demolishHousesOnTheStreet, getGraterCount} from "../04-filter/04_2";
+import {createMessages, getStreetsTitles, getStreetsTitlesGov} from "../05-map/05";
+import {createMessage} from "../03functions/03";
 
 let city: CityType;
 beforeEach(()=> {
@@ -79,4 +81,29 @@ test("buildings with correct staff count", () => {
     let buildings = getGraterCount(city.governmentBuildings, 500)
     expect(buildings.length).toBe(1);
     expect(buildings[0].type).toBe("FIRE-STATION");
+})
+
+//тести на map
+test("list of streets titles of gov buildings", () => {
+    let streets = getStreetsTitlesGov(city.governmentBuildings);
+
+    expect(streets.length).toBe(2);
+    expect(streets[0]).toBe("Central Str");
+    expect(streets[1]).toBe("Souths park str");
+})
+
+test("list of streets titles", () => {
+    let streets = getStreetsTitles(city.houses);
+
+    expect(streets.length).toBe(3);
+    expect(streets[0]).toBe("White street");
+    expect(streets[1]).toBe("Happy street");
+})
+
+test("create greeting messages for streets", () => {
+    let electionMessages = createMessages(city.houses);
+
+    expect(electionMessages.length).toBe(3);
+    expect(electionMessages[0]).toBe("Hello guys from White street");
+    expect(electionMessages[1]).toBe("Hello guys from Happy street");
 })
